@@ -1,7 +1,8 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <h2 @click="request()">jx.request()</h2>
+    <h2 @click="requestPost()">jx.requestPost()</h2>
+    <h2 @click="requestGet()">jx.requestGet()</h2>
     <h2 @click="showLogin()">jx.showLogin()</h2>
     <h2 @click="isLogin()">x.isLogin()</h2>
     <h2 @click="showAlert()">jx.showAlert</h2>
@@ -12,6 +13,7 @@
 
 import jx from './jx.js';
 jx.init();
+console.log('jx.init()')
 
 export default {
   name: 'HelloWorld',
@@ -21,21 +23,50 @@ export default {
     }
   },
   methods: {
-    request () {
+    requestPost () {
       // 点击事件的时候去寻找相应的方法，在底层做转换直接写方法名，大括号里面写相应的业务逻辑
       console.log('11')
-      jx.request()
+      let option = {
+        url: 'api.freego.haitiand.cn/travelcard/bindCard',
+        method:'post',
+        data: {
+          card_no: '1jjguftgytfy',
+          code: '1gy7gty'
+          //...
+        }}
+      jx.request(option,res=>{
+        console.log('vue post res =====> '+res)
+      },err=>{
+        console.log('vue post err =====> '+err)
+      })
     },
-    // 也可以采用匿名函数的写法定义方法名，然后进行调用这种方法也是可以的，只不过getMethod ()的写法更加简洁，但是在实际开发当中这个可是不支持的例如   aaFunc (){}         //直接这样写是会报错的，一定要注意;
+    requestGet () {
+      // 点击事件的时候去寻找相应的方法，在底层做转换直接写方法名，大括号里面写相应的业务逻辑
+      console.log('22')
+      let option = {
+        url: 'api.freego.haitiand.cn/travelcard/getActivityData',
+        method:'get',
+        data: {
+
+        }}
+      jx.request(option,res=>{
+        console.log('vue get res =====> '+res)
+      },err=>{
+        console.log('vue get err =====> '+err)
+      })
+    },
     showLogin () {
       console.log('22')
       jx.showLogin()
     },
-    isLogin: function () {
+    isLogin () {
       console.log('33')
-      jx.isLogin()
+      jx.isLogin(isLogin=>{
+        // isLogin 为布尔值
+        console.log('vue 中是否登录 ==> '+isLogin);
+      })
     },
-    showAlert: function () {
+    showAlert() {
       console.log('44')
       jx.showAlert({
         title: '我是来自于JS的标题',

@@ -2,7 +2,8 @@ class JX {
 
   constructor () {
     this.init.bind(this)
-    this._initBridge.bind(this)
+    this.initBridge.bind(this)
+    this.request.bind(this)
     this.showLogin.bind(this)
     this.isLogin.bind(this)
     this.showAlert.bind(this)
@@ -13,14 +14,14 @@ class JX {
     let bridge = window.WebViewJavascriptBridge
     if (bridge) {
       //do your work here
-      console.log('do your work here 1')
+      console.log('bridge已经初始化了')
       this.initBridge(bridge)
     } else {
       document.addEventListener(
         'WebViewJavascriptBridgeReady'
-        , function () {
+        ,  ()=>{
           //do your work here
-          console.log('do your work here 2')
+          console.log('bridge初始化完成了第一步')
           let bridge = window.WebViewJavascriptBridge
           this.initBridge(bridge)
         },
@@ -29,11 +30,11 @@ class JX {
     }
   }
 
-  _initBridge (bridge) {
+  initBridge (bridge) {
     if (bridge) {
       //You can also define a default handler use init method, so that Java can send message to js without assigned handlerName
       bridge.init((message, responseCallback) => {
-        console.log('android bridge.init()...初始化完成')
+        console.log('android bridge.init()...初始化完成了第二步')
         let data = {'json': 'JS返回任意数据!'}
         responseCallback(data)
       })
@@ -43,7 +44,7 @@ class JX {
   /*
   * option = {
           url: 'xxxx',
-          method:'get'
+          method:'get',
           data: {
               a: 1,
               b: 2,
@@ -58,7 +59,16 @@ class JX {
         'request',
         JSON.stringify(option),
         dataFromJava => {
-
+          console.log('jx.js 接收数据 ===> '+dataFromJava)
+          let ind = dataFromJava.indexOf('err:')
+          if (ind == 0) {
+            //错误信息
+            let res = dataFromJava.substring(ind + 4)
+            errCallback(res)
+          } else {
+            //正确结果
+            successCallback(dataFromJava)
+          }
         }
       )
     }
@@ -70,7 +80,7 @@ class JX {
     if (bridge) {
       bridge.callHandler(
         'showLogin',
-        "",
+        '',
         userInfo => {
           callback(userInfo)
         }
@@ -83,9 +93,9 @@ class JX {
     if (bridge) {
       bridge.callHandler(
         'isLogin',
-        "",
+        '',
         loginCode => {
-          callback(loginCode == '1')
+          callback(loginCode == 'true')
         }
       )
     }
@@ -97,14 +107,14 @@ class JX {
           descrip:'我是描述'
          }
   */
-  showAlert (option,okCallback,cancelCallback) {
+  showAlert (option, okCallback, cancelCallback) {
     let bridge = window.WebViewJavascriptBridge
     if (bridge) {
       bridge.callHandler(
         'showAlert',
         JSON.stringify(option),
         code => {
-          if(loginCode == '1'){
+          if (loginCode == '1') {
             okCallback()
             return
           }
