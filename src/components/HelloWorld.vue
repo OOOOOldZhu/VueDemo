@@ -71,7 +71,8 @@ export default {
     showAlert() {
       console.log('44')
       jx.showAlert({
-        title: '我是来自于JS的标题',
+        type:'1',  //如果type含有，那么就是打卡成功的弹窗
+        title: '打卡成功',
         descrip:'我是来自于JS的描述'
       },()=>{
 
