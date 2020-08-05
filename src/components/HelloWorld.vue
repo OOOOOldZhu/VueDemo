@@ -57,7 +57,9 @@ export default {
     },
     showLogin () {
       console.log('22')
-      jx.showLogin()
+      jx.showLogin(userInfo=>{
+        console.log('vue 中showLogin ==> '+userInfo);
+      })
     },
     isLogin () {
       console.log('33')
