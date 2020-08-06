@@ -18,7 +18,7 @@
 <script>
 
 import jx from './jx.js';
-jx.init();
+
 console.log('jx.init()')
 
 export default {

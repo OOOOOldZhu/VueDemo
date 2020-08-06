@@ -125,5 +125,8 @@ class JX {
   }
 
 }
+let jx = new JX();
 
-export default new JX()
+jx.init();
+
+export default jx;
