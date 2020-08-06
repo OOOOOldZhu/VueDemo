@@ -114,7 +114,7 @@ class JX {
         'showAlert',
         JSON.stringify(option),
         code => {
-          if (loginCode == '1') {
+          if (code == '1') {
             okCallback()
             return
           }

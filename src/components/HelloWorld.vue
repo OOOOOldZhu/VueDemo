@@ -1,5 +1,11 @@
 <template>
   <div class="hello">
+    <img id="headImg" src="../assets/head.png">
+    <!--<div id="headP">
+      <img id="headImg" src="../assets/head.png">
+      <h2 id="headYear">打卡第4年</h2>
+    </div>-->
+
     <h1>{{ msg }}</h1>
     <h2 @click="requestPost()">jx.requestPost()</h2>
     <h2 @click="requestGet()">jx.requestGet()</h2>
@@ -95,4 +101,17 @@ export default {
 h1, h2 {
   font-weight: normal;
 }
+#headP{
+  position:relative;
+}
+#headImg {
+  width: 100%;
+  /*position:absolute;*/
+  /*z-index: 100;*/
+}
+#headYear {
+  position:absolute;
+  z-index: 101;
+}
+
 </style>

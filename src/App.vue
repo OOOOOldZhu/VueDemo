@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <img id="head" src="./assets/head.png">
+
     <router-view/>
   </div>
 </template>
@@ -22,7 +22,4 @@ export default {
   background-color: #E5FFF5;
 }
 
-#head {
-    width: 100%;
-}
 </style>
