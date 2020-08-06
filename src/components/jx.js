@@ -125,9 +125,12 @@ class JX {
   }
 
 }
-let jx = new JX();
+let jx;
 
-jx.init();
-console.log('jx.init()')
+if(!jx){
+  jx = new JX();
+  jx.init();
+  console.log('jx.init()')
+}
 
 export default jx;
