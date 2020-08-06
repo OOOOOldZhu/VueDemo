@@ -19,8 +19,6 @@
 
 import jx from './jx.js';
 
-console.log('jx.init()')
-
 export default {
   name: 'HelloWorld',
   data () {

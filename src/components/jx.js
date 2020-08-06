@@ -128,5 +128,6 @@ class JX {
 let jx = new JX();
 
 jx.init();
+console.log('jx.init()')
 
 export default jx;
