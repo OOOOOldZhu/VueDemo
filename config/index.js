@@ -3,6 +3,8 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 
 const path = require('path')
+let p = path.resolve(__dirname, '')
+console.log('启动服务地址可在node环境中配置'+p)
 
 module.exports = {
   dev: {
