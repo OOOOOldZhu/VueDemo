@@ -10,7 +10,7 @@ class JX {
   }
 
   init () {
-    console.log('onBridgeInit()')
+    console.log('init()')
     let bridge = window.WebViewJavascriptBridge
     if (bridge) {
       //do your work here
@@ -143,7 +143,6 @@ let jx;
 if(!jx){
   jx = new JX();
   jx.init();
-  console.log('jx.init()')
 }
 
 export default jx;
