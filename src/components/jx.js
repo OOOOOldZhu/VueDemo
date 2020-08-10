@@ -124,6 +124,19 @@ class JX {
     }
   }
 
+  hideBackBtn(isShow){
+    let bridge = window.WebViewJavascriptBridge
+    if (bridge) {
+      bridge.callHandler(
+        'hideBackBtn',
+        isShow,
+        nill => {
+
+        }
+      )
+    }
+  }
+
 }
 let jx;
 

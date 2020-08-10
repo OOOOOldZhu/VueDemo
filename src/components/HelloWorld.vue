@@ -12,6 +12,7 @@
     <h2 @click="showLogin()">jx.showLogin()</h2>
     <h2 @click="isLogin()">x.isLogin()</h2>
     <h2 @click="showAlert()">jx.showAlert</h2>
+    <h2 @click="hideBackBtn()">jx.hideBackBtn</h2>
   </div>
 </template>
 
@@ -88,7 +89,11 @@ export default {
       },()=>{
 
       })
+    },
+    hideBackBtn(){
+      jx.hideBackBtn(false)
     }
+
   }
 
 }
