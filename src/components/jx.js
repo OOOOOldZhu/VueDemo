@@ -7,6 +7,7 @@ class JX {
     this.isLogin.bind(this)
     this.showAlert.bind(this)
     this.finish.bind(this)
+    this.jumpTo.bind(this)
   }
 
   init (callback) {
@@ -17,7 +18,7 @@ class JX {
         console.log('android bridge.init()...初始化完成了1')
         let data = {'json': 'JS返回任意数据!'}
         responseCallback(data)
-        if(callback)callback();
+        if (callback) callback()
       })
     } else {
       document.addEventListener(
@@ -29,7 +30,7 @@ class JX {
             console.log('android bridge.init()...初始化完成了2')
             let data = {'json': 'JS返回任意数据!'}
             responseCallback(data)
-            if(callback)callback();
+            if (callback) callback()
           })
         },
         false
@@ -120,12 +121,12 @@ class JX {
     }
   }
 
-  finish(){
+  finish () {
     let bridge = window.WebViewJavascriptBridge
     if (bridge) {
       bridge.callHandler(
         'finish',
-        "",
+        '',
         () => {
 
         }
