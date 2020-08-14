@@ -49,27 +49,25 @@ class JX {
   */
   request (option, successCallback, errCallback) {
     console.log('jx.request')
-    this.init(()=>{
-      let bridge = window.WebViewJavascriptBridge
-      if (bridge) {
-        bridge.callHandler(
-          'request',
-          JSON.stringify(option),
-          dataFromJava => {
-            console.log('jx.js 接收数据 ===> ' + dataFromJava)
-            let ind = dataFromJava.indexOf('err:')
-            if (ind == 0) {
-              //错误信息
-              let res = dataFromJava.substring(ind + 4)
-              errCallback(res)
-            } else {
-              //正确结果
-              successCallback(dataFromJava)
-            }
+    let bridge = window.WebViewJavascriptBridge
+    if (bridge) {
+      bridge.callHandler(
+        'request',
+        JSON.stringify(option),
+        dataFromJava => {
+          console.log('jx.js 接收数据 ===> ' + dataFromJava)
+          let ind = dataFromJava.indexOf('err:')
+          if (ind == 0) {
+            //错误信息
+            let res = dataFromJava.substring(ind + 4)
+            errCallback(res)
+          } else {
+            //正确结果
+            successCallback(dataFromJava)
           }
-        )
-      }
-    })
+        }
+      )
+    }
   }
 
   showLogin (callback) {
@@ -143,7 +141,7 @@ class JX {
       bridge.callHandler(
         'jumpTo',
         type,
-        jsonStr => {
+        () => {
 
         }
       )
@@ -177,7 +175,6 @@ let jx
 
 if (!jx) {
   jx = new JX()
-  jx.init()
 }
 
 export default jx
