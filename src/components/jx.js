@@ -134,10 +134,13 @@ class JX {
   }
 
   jumpTo (type) {
+    //看视频 video
+    //去领奖 award
+    //去完成 写游记 writeTravel
+    //游记列表 我的游记 travelList
     // video award writeTravel travelList
     let bridge = window.WebViewJavascriptBridge
     if (bridge) {
-
       bridge.callHandler(
         'jumpTo',
         type,
@@ -145,27 +148,6 @@ class JX {
 
         }
       )
-
-      //看视频
-      if (type.contains('video')) {
-
-        return
-      }
-      //去领奖
-      if (type.contains('award')) {
-
-        return
-      }
-      //去完成 写游记
-      if (type.contains('writeTravel')) {
-
-        return
-      }
-      //游记列表 我的游记
-      if (type.contains('travelList')) {
-
-        return
-      }
     }
   }
 
