@@ -2,42 +2,37 @@ class JX {
 
   constructor () {
     this.init.bind(this)
-    this.initBridge.bind(this)
     this.request.bind(this)
     this.showLogin.bind(this)
     this.isLogin.bind(this)
     this.showAlert.bind(this)
   }
 
-  init () {
+  init (callback) {
     console.log('init()')
     let bridge = window.WebViewJavascriptBridge
     if (bridge) {
-      //do your work here
-      console.log('bridge已经初始化了')
-      this.initBridge(bridge)
+      bridge.init((message, responseCallback) => {
+        console.log('android bridge.init()...初始化完成了1')
+        let data = {'json': 'JS返回任意数据!'}
+        responseCallback(data)
+        if(callback)callback();
+      })
     } else {
       document.addEventListener(
         'WebViewJavascriptBridgeReady'
-        ,  ()=>{
+        , () => {
           //do your work here
-          console.log('bridge初始化完成了第一步')
           let bridge = window.WebViewJavascriptBridge
-          this.initBridge(bridge)
+          bridge.init((message, responseCallback) => {
+            console.log('android bridge.init()...初始化完成了2')
+            let data = {'json': 'JS返回任意数据!'}
+            responseCallback(data)
+            if(callback)callback();
+          })
         },
         false
       )
-    }
-  }
-
-  initBridge (bridge) {
-    if (bridge) {
-      //You can also define a default handler use init method, so that Java can send message to js without assigned handlerName
-      bridge.init((message, responseCallback) => {
-        console.log('android bridge.init()...初始化完成了第二步')
-        let data = {'json': 'JS返回任意数据!'}
-        responseCallback(data)
-      })
     }
   }
 
@@ -53,25 +48,27 @@ class JX {
   */
   request (option, successCallback, errCallback) {
     console.log('jx.request')
-    let bridge = window.WebViewJavascriptBridge
-    if (bridge) {
-      bridge.callHandler(
-        'request',
-        JSON.stringify(option),
-        dataFromJava => {
-          console.log('jx.js 接收数据 ===> '+dataFromJava)
-          let ind = dataFromJava.indexOf('err:')
-          if (ind == 0) {
-            //错误信息
-            let res = dataFromJava.substring(ind + 4)
-            errCallback(res)
-          } else {
-            //正确结果
-            successCallback(dataFromJava)
+    this.init(()=>{
+      let bridge = window.WebViewJavascriptBridge
+      if (bridge) {
+        bridge.callHandler(
+          'request',
+          JSON.stringify(option),
+          dataFromJava => {
+            console.log('jx.js 接收数据 ===> ' + dataFromJava)
+            let ind = dataFromJava.indexOf('err:')
+            if (ind == 0) {
+              //错误信息
+              let res = dataFromJava.substring(ind + 4)
+              errCallback(res)
+            } else {
+              //正确结果
+              successCallback(dataFromJava)
+            }
           }
-        }
-      )
-    }
+        )
+      }
+    })
   }
 
   showLogin (callback) {
@@ -124,7 +121,7 @@ class JX {
     }
   }
 
-  hideBackBtn(isShow){
+  hideBackBtn (isShow) {
     let bridge = window.WebViewJavascriptBridge
     if (bridge) {
       bridge.callHandler(
@@ -137,12 +134,49 @@ class JX {
     }
   }
 
-}
-let jx;
+  jumpTo (type) {
+    // video award writeTravel travelList
+    let bridge = window.WebViewJavascriptBridge
+    if (bridge) {
 
-if(!jx){
-  jx = new JX();
-  jx.init();
+      bridge.callHandler(
+        'jumpTo',
+        type,
+        jsonStr => {
+
+        }
+      )
+
+      //看视频
+      if (type.contains('video')) {
+
+        return
+      }
+      //去领奖
+      if (type.contains('award')) {
+
+        return
+      }
+      //去完成 写游记
+      if (type.contains('writeTravel')) {
+
+        return
+      }
+      //游记列表 我的游记
+      if (type.contains('travelList')) {
+
+        return
+      }
+    }
+  }
+
 }
 
-export default jx;
+let jx
+
+if (!jx) {
+  jx = new JX()
+  jx.init()
+}
+
+export default jx
