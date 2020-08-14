@@ -6,6 +6,7 @@ class JX {
     this.showLogin.bind(this)
     this.isLogin.bind(this)
     this.showAlert.bind(this)
+    this.finish.bind(this)
   }
 
   init (callback) {
@@ -121,13 +122,13 @@ class JX {
     }
   }
 
-  hideBackBtn (isShow) {
+  finish(){
     let bridge = window.WebViewJavascriptBridge
     if (bridge) {
       bridge.callHandler(
-        'hideBackBtn',
-        isShow,
-        nill => {
+        'finish',
+        "",
+        () => {
 
         }
       )
