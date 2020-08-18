@@ -14,6 +14,7 @@
     <h2 @click="showAlert()">jx.showAlert</h2>
     <h2 @click="hideBackBtn()">jx.hideBackBtn</h2>
     <h2 @click="jumpTo()">jx.jumpTo</h2>
+    <h2 @click="getDataAndTo()">获取数据并跳转到领奖界面</h2>
   </div>
 </template>
 
@@ -86,7 +87,9 @@
           */
           type: '1',
           title: '打卡成功',
-          descrip: '我是来自于JS的描述'
+          descrip: '我是来自于JS的描述',
+          cancelBtnVisble:false,
+          confirmBtnText:'确定'
         }, () => {
 
         }, () => {
@@ -97,8 +100,28 @@
         jx.hideBackBtn(false)
       },
       jumpTo () {
-        jx.jumpTo('video')
+        jx.jumpTo({type:'video'})
+      },
+      getDataAndTo(){
+        let option = {
+          url: 'api.freego.haitiand.cn/travelcard/getActivityData',
+          method: 'get',
+          data: {}
+        }
+        jx.request(option, res => {
+          console.log('vue get res =====> ' + res)
+          // day 连续天数
+          // State: 0/1 可以继续打卡
+          // Date: 服务器时间
+          // Task: 任务列表 id=1,check:是当天否已打卡;   id=2,check:完成游记的篇数
+          let day = JSON.parse(res).data.day
+          //this.getAwardList(day);
+          jx.jumpTo({type:'award',data:{day:day}})
+        }, err => {
+          console.log('vue get err =====> ' + err)
+        })
       }
+
     }
 
   }

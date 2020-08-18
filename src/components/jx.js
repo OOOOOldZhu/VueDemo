@@ -14,12 +14,12 @@ class JX {
     console.log('init()')
     let bridge = window.WebViewJavascriptBridge
     if (bridge) {
-      bridge.init((message, responseCallback) => {
-        console.log('android bridge.init()...初始化完成了1')
-        let data = {'json': 'JS返回任意数据!'}
-        responseCallback(data)
-        if (callback) callback()
-      })
+      // bridge.init((message, responseCallback) => {
+      //   console.log('android bridge.init()...初始化完成了1')
+      //   let data = {'json': 'JS返回任意数据!'}
+      //   responseCallback(data)
+      //   if (callback) callback()
+      // })
     } else {
       document.addEventListener(
         'WebViewJavascriptBridgeReady'
@@ -134,7 +134,7 @@ class JX {
     }
   }
 
-  jumpTo (type) {
+  jumpTo (option) {
     //看视频 video
     //去领奖 award
     //去完成 写游记 writeTravel
@@ -144,7 +144,7 @@ class JX {
     if (bridge) {
       bridge.callHandler(
         'jumpTo',
-        type,
+        option,
         () => {
 
         }
