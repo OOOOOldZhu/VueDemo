@@ -134,7 +134,7 @@ class JX {
     }
   }
 
-  jumpTo (option) {
+  jumpTo (option,callback) {
     //看视频 video
     //去领奖 award
     //去完成 写游记 writeTravel
@@ -146,7 +146,7 @@ class JX {
         'jumpTo',
         option,
         () => {
-
+          if(callback)callback();
         }
       )
     }

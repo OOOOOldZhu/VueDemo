@@ -100,7 +100,9 @@
         jx.hideBackBtn(false)
       },
       jumpTo () {
-        jx.jumpTo({type:'video'})
+        jx.jumpTo({type:'video'},()=>{
+          // setState({}) ...
+        })
       },
       getDataAndTo(){
         let option = {
