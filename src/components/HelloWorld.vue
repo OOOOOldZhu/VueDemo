@@ -100,7 +100,7 @@
         jx.hideBackBtn(false)
       },
       jumpTo () {
-        jx.jumpTo({type: 'writeTravel'}, data => {
+        jx.jumpTo({type: 'video'}, data => {
           console.log(' zhu - - - - - > '+data)
           // setState({}) ...
         })
