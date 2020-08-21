@@ -88,8 +88,8 @@
           type: '1',
           title: '打卡成功',
           descrip: '我是来自于JS的描述',
-          cancelBtnVisble:false,
-          confirmBtnText:'确定'
+          cancelBtnVisble: false,
+          confirmBtnText: '确定'
         }, () => {
 
         }, () => {
@@ -100,11 +100,12 @@
         jx.hideBackBtn(false)
       },
       jumpTo () {
-        jx.jumpTo({type:'video'},()=>{
+        jx.jumpTo({type: 'writeTravel'}, data => {
+          console.log(' zhu - - - - - > '+data)
           // setState({}) ...
         })
       },
-      getDataAndTo(){
+      getDataAndTo () {
         let option = {
           url: 'api.freego.haitiand.cn/travelcard/getActivityData',
           method: 'get',
@@ -118,7 +119,7 @@
           // Task: 任务列表 id=1,check:是当天否已打卡;   id=2,check:完成游记的篇数
           let day = JSON.parse(res).data.day
           //this.getAwardList(day);
-          jx.jumpTo({type:'award',data:{day:day}})
+          jx.jumpTo({type: 'award', data: {day: day}})
         }, err => {
           console.log('vue get err =====> ' + err)
         })

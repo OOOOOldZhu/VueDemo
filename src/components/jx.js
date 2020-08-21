@@ -145,8 +145,8 @@ class JX {
       bridge.callHandler(
         'jumpTo',
         option,
-        () => {
-          if(callback)callback();
+        data => {
+          if(callback)callback(data);
         }
       )
     }
